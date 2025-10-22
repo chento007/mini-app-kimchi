@@ -1,16 +1,10 @@
 "use server";
 
-import { CreateProductData, Product } from "./../../.types/prdoduct.d";
-import { api } from "./base";
+import { BASE_URL } from "@/constant/constant";
+import { IProduct } from "../../.types/prdoduct";
 
-export const productsApi = {
-  // Get all products
-  getAll: (): Promise<Product[]> => api.get("/products"),
-
-  // Get single product
-  getById: (id: number): Promise<Product> => api.get(`/products/${id}`),
-
-  // Create product
-  create: (data: CreateProductData): Promise<Product> =>
-    api.post("/products", data),
+export const fetchAllProduct = async () => {
+  const res = await fetch(`${BASE_URL}/products`);
+  const products: IProduct[] = await res.json();
+  return products;
 };
